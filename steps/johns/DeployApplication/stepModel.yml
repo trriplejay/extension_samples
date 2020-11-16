@@ -1,0 +1,44 @@
+###
+# example of a finalized yaml for this step
+# will reverse engineer the definition
+###
+steps:
+  - name: myDeploy
+    type: DeployApplication # ??
+    configuration:
+      inputResources:
+        - name: <vm cluster resource> # this contains the IP address list of the VMs to deploy to
+        - name: <filespec resource> # this can point to a particular file, a build, or a release bundle.
+      strategy: <rollout/replace>
+      rolloutDelay: <seconds> # time to wait in between each target. only for rollout strategy
+      fileSpecResourceName: <name of filespec resource>     
+      targetDirectory: <path on VMs> # defaults to ~
+      deployCommand: <command> # command to execute on the VM after copying files
+      postDeployCommand: <command> # optional command to execute on the VM after the deploy command
+      fastFail: <true/false> # will fail the whole step when the first deployment fails
+
+
+
+
+
+
+description: "deploy packages to one or more machines"         # User can provide an optional description
+
+configuration:                  # array of properties
+  targets:
+    type: string[]           # required
+    validate:                   # optional
+      isRegex: ["^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$",'i']
+
+   # more property definitions
+
+
+userDefinedDataType:             # array of data type definitions
+  - type: <string>               # Defines a new data type
+    configuration:
+      - <string>:                # Specifies a property of the data type
+        type: <data type>           # required
+        validate:                   # optional
+          <validation specifiction>
+
+   # more data type property definitions
